@@ -35560,7 +35560,7 @@ var styleDirective = valueFn({
 
 })(window, document);
 angular.element(document).find('head').append('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none;}ng\\:form{display:block;}</style>');
-/*! jquery-mobile-angular-adapter - v1.3.2-SNAPSHOT - 2013-06-27
+/*! jquery-mobile-angular-adapter - v1.3.2-SNAPSHOT - 2013-11-27
 * https://github.com/opitzconsulting/jquery-mobile-angular-adapter
 * Copyright (c) 2013 Tobias Bosch; Licensed MIT */
 (function(factory) {
@@ -37679,12 +37679,17 @@ factory(window.jQuery, window.angular);
                     valueInterpolateFn = $interpolate(tElement.attr('value'), true);
                 }
                 return function (scope, iElement, iAttrs) {
-                    scope.$watch(textInterpolateFn, function () {
-                        iElement.trigger("$childrenChanged");
-                    });
-                    scope.$watch(valueInterpolateFn, function () {
-                        iElement.trigger("$childrenChanged");
-                    });
+                    if (textInterpolateFn != null) {
+                        scope.$watch(textInterpolateFn, function () {
+                            iElement.trigger("$childrenChanged");
+                        });
+                    }
+
+                    if (valueInterpolateFn != null) {
+                        scope.$watch(valueInterpolateFn, function () {
+                            iElement.trigger("$childrenChanged");
+                        });
+                    }
                 };
             }
         };
